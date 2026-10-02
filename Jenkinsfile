@@ -11,11 +11,24 @@ pipeline {
             }
         }
 
+        stage('test') {
+            steps {
+                sh 'yarn test'
+            }
+        }
+
         stage('build') {
             steps {
                 sh 'yarn build'
             }
         }
+
+        stage('e2e-test') {
+            steps {
+                sh 'yarn test:e2e'
+            }
+        }
+
 
         stage('deploy') {
             steps {
