@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    environment { TERM = 'xterm'; NO_COLOR = '1' }
     tools {
         nodejs 'yarn'
     }
@@ -27,8 +28,13 @@ pipeline {
             steps {
                 sh 'yarn test:e2e'
             }
-        }
 
+            post {
+                always {
+                    junit '**/reports/**/*.xml'
+                }
+            }
+        }
 
         stage('deploy') {
             steps {
