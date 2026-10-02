@@ -16,6 +16,11 @@ pipeline {
             steps {
                 sh 'yarn test'
             }
+            post {
+                always {
+                    junit 'reports/jest-junit.xml'
+                }
+            }
         }
 
         stage('build') {
@@ -29,9 +34,9 @@ pipeline {
                 sh 'yarn test:e2e'
             }
 
-            post {
+           post {
                 always {
-                    junit 'cypress/results/*.xml'
+                    junit 'reports/cypress-junit.xml'
                 }
             }
         }
